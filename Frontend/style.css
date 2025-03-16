@@ -88,6 +88,7 @@ header .profile .signup {
   cursor: pointer;
   border-radius: 0.5rem;
   transition: transform 0.2s;
+  text-decoration: none;
 }
 header .profile .signup:hover {
   transform: scale(1.1);
