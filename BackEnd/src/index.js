@@ -39,6 +39,10 @@ app.get("/index" , (req , res) => {
     res.render("index")
 });
 
+app.get("/home_page" , (req , res) => {
+    res.render("home_page")
+});
+
 app.get("/login_page",(req ,res)=>{
 
     res.render("login_page")
