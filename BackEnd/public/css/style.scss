@@ -112,6 +112,7 @@ nav ul li a {
             cursor: pointer;
             border-radius: 0.5rem;
             transition: transform 0.2s;
+            text-decoration: none;
 
             &:hover {
                 transform: scale(1.1);
@@ -130,7 +131,7 @@ nav ul li a {
 .hero {
     width: 100%;
     height: 100vh;
-    background: url('./photos/hero2.avif') no-repeat center center/cover;
+    background: url('../photos/hero2.avif') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
