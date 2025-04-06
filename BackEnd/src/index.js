@@ -51,3 +51,95 @@ app.get("/login_page",(req ,res)=>{
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+
+// Middleware to check user login session and make it available for all views
+app.use(async (req, res, next) => {
+    try {
+        if (req.cookies.userEmail) {
+            const user = await Login.findOne({ email: req.cookies.userEmail });
+            if (user) {
+                res.locals.user = user; // Make user data available in all views
+            } else {
+                res.locals.user = null;
+            }
+        } else {
+            res.locals.user = null; // If no cookie, set user to null
+        }
+    } catch (error) {
+        res.locals.user = null; // On error, also set to null
+    }
+    next();
+});
+
+//creatte a new user in database
+app.post("/login_page",async(req ,res)=>{
+    try{
+
+       const password = req.body.password;
+       const cpassword = req.body.confirmpassword;
+
+       if(password === cpassword){
+
+           const registerEmployee = new Login({
+               text :req.body.text,
+               email : req.body.email,
+               password :password,
+               confirmpassword:cpassword
+
+           })
+              
+          const registred = await registerEmployee.save();
+          res.status(201).render("index");
+         
+          
+
+
+       }else{
+           res.send("password are not match")
+       }
+       
+    }catch (error) {
+       res.status(400).send(error)
+    }
+    
+})
+//login check
+
+app.post("/log", async (req, res) => {
+   try {
+       const email = req.body.email;
+       const password = req.body.password;
+
+       const useremail = await Login.findOne({ email: email });
+       
+       if (useremail.password === password) {
+           // Set cookie or session to persist the user session
+           res.cookie("userEmail", useremail.email, {
+               httpOnly: true
+           });
+           
+           // Pass the user data to the template
+           res.status(201).render("index", { user: useremail });
+       } else {
+           res.send("Password is not matching");
+       }
+   } catch (error) {
+       res.status(400).send("Invalid Email");
+   }
+});
+
+
+
+const jwt = require("jsonwebtoken");
+
+const createToken = async()=> {
+   const token = await jwt.sign({_id:"670cbdf306dcf37c0dafba01"},"mygfcvxdszxawertfhyujkiokdswqacvgfdreuyhg");
+   console.log(token);
+
+   const userVar = await jwt.verify(token, "mygfcvxdszxawertfhyujkiokdswqacvgfdreuyhg");
+   console.log(userVar);
+}
+
+createToken();
+
