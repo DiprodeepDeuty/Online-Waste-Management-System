@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Service</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, button, textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group-inline {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .form-group-inline > div {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Waste Management Service</h1>
+        <form action="/submit-service" method="POST">
+            <div class="form-group">
+                <label for="waste-type">Select Waste Type:</label>
+                <select id="waste-type" name="wasteType" required>
+                    <option value="" disabled selected>Select a type</option>
+                    <option value="paper">Paper</option>
+                    <option value="plastic">Plastic</option>
+                    <option value="metal">Metal</option>
+                    <option value="glass">Glass</option>
+                    <option value="organic">Organic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="waste-amount">Select Amount (in kg):</label>
+                <select id="waste-amount" name="wasteAmount" required>
+                    <option value="" disabled selected>Select amount</option>
+                    <option value="0.5">0.5 kg</option>
+                    <option value="1">1 kg</option>
+                    <option value="2">2 kg</option>
+                    <option value="5">5 kg</option>
+                    <option value="10">10 kg</option>
+                    <option value="20">20 kg</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pickup-date">Select Pickup Date:</label>
+                <input type="date" id="pickup-date" name="pickupDate" required>
+            </div>
+            <div class="form-group">
+                <label for="additional-notes">Additional Notes (Optional):</label>
+                <textarea id="additional-notes" name="additionalNotes" rows="4" placeholder="Enter any additional details..."></textarea>
+            </div>
+            <button type="submit">Submit Request</button>
+        </form>
+    </div>
+</body>
+</html>
