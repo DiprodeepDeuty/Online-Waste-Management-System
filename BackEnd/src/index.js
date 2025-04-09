@@ -26,7 +26,7 @@ hbs.registerPartials(partials_path );
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Database connection
-mongoose.connect('your-mongodb-connection-string', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/onlineWasteManagementSystem', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
@@ -47,9 +47,9 @@ app.get("/home_page" , (req , res) => {
     res.render("home_page")
 });
 
-app.get("/login_page",(req ,res)=>{
+app.get("/login",(req ,res)=>{
 
-    res.render("login_page")
+    res.render("login")
 });
 
 app.get("/service",(req ,res)=>{
@@ -83,7 +83,7 @@ app.use(async (req, res, next) => {
 });
 
 //creatte a new user in database
-app.post("/login_page",async(req ,res)=>{
+app.post("/login",async(req ,res)=>{
     try{
 
        const password = req.body.password;
@@ -100,7 +100,7 @@ app.post("/login_page",async(req ,res)=>{
            })
               
           const registred = await registerEmployee.save();
-          res.status(201).render("index");
+          res.status(201).render("index", { message: "Registration successful!" });
          
           
 

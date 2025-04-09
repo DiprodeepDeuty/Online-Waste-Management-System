@@ -6,7 +6,7 @@ const WasteItemSchema = new mongoose.Schema({
     pricePerKg: { type: Number, required: true }, // price per kg for the waste item
 });
 
-// Define the schema for user-selected waste
+// Define the schema for user-selected waste along with service details
 const UserWasteSelectionSchema = new mongoose.Schema({
     wasteItems: [
         {
@@ -15,6 +15,9 @@ const UserWasteSelectionSchema = new mongoose.Schema({
         },
     ],
     totalPrice: { type: Number, default: 0 }, // total price for the selected waste
+    pickupLocation: { type: String, required: true }, // Pick up location from service.hbs form
+    pickupDate: { type: Date, required: true },       // Pickup date from service.hbs form
+    additionalNotes: { type: String, default: "" }      // Additional notes (optional)
 });
 
 // Method to calculate the total price

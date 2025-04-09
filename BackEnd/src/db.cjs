@@ -1,11 +1,10 @@
-// filepath: c:\Users\Abhrajyoti Patra\OneDrive\Desktop\online waste management system\Online-Waste-Management-System\BackEnd\src\db.cjs
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/onlineWasteManagementSystem",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect("mongodb://localhost:27017/onlineWasteManagementSystem", { 
+    
 }).then(() => {
-    console.log("Connection successful");
+    console.log(`connection successful`);
 }).catch((e) =>{
-    console.log("No connection", e);
+
+    console.log(`no connection`);
 })
