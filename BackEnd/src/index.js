@@ -1,9 +1,13 @@
 const express = require("express");
 const path = require("path");
+const app = express();
 const bodyParser = require("body-parser");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
-const app = express();
+require("./DB/db");
+
+const Login = require("./models/login");  // import login model
+
 
 const port = process.env.PORT || 3000;
 
@@ -25,10 +29,6 @@ app.set("views", template_path );
 hbs.registerPartials(partials_path );
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Database connection
-mongoose.connect('mongodb://localhost:27017/onlineWasteManagementSystem', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected...'))
-    .catch(err => console.log(err));
 
 // Routes
 app.get("/" , (req , res) => {
@@ -88,7 +88,7 @@ app.post("/login",async(req ,res)=>{
 
        const password = req.body.password;
        const cpassword = req.body.confirmpassword;
-
+       console.log("Request body:", req.body);
        if(password === cpassword){
 
            const registerEmployee = new Login({
@@ -100,7 +100,7 @@ app.post("/login",async(req ,res)=>{
            })
               
           const registred = await registerEmployee.save();
-          res.status(201).render("index", { message: "Registration successful!" });
+          res.status(201).render("home_page", { message: "Registration successful!" });
          
           
 
@@ -114,13 +114,35 @@ app.post("/login",async(req ,res)=>{
     }
     
 })
+
+// Create new user (Sign‑up) on a separate route
+app.post("/register", async (req, res) => {
+    try {
+        const { text, email, password, confirmpassword } = req.body;
+        if (password === confirmpassword) {
+            const registerEmployee = new Login({
+                text,
+                email,
+                password,
+                confirmpassword
+            });
+            await registerEmployee.save();
+            // Redirect to login page after registration
+            res.redirect("/login");
+        } else {
+            res.send("Passwords do not match");
+        }
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
 //login check
 
 app.post("/log", async (req, res) => {
    try {
        const email = req.body.email;
        const password = req.body.password;
-
+       console.log("Request body:", req.body);
        const useremail = await Login.findOne({ email: email });
        
        if (useremail.password === password) {
@@ -138,6 +160,64 @@ app.post("/log", async (req, res) => {
        res.status(400).send("Invalid Email");
    }
 });
+
+
+// const bcrypt = require("bcryptjs");
+
+// app.post("/login", async (req, res) => {
+//     try {
+//         const { text, email, password, confirmpassword } = req.body;
+//         console.log("Request body:", req.body);
+
+//         if (password !== confirmpassword) {
+//             return res.send("Passwords do not match");
+//         }
+
+//         // Hash the password
+//         const hashedPassword = await bcrypt.hash(password, 10);
+
+//         // Save to DB
+//         const registerEmployee = new Login({
+//             text,
+//             email,
+//             password: hashedPassword,
+//             confirmpassword: hashedPassword
+//         });
+
+//         await registerEmployee.save();
+//         res.status(201).render("home_page", { message: "Registration successful!" });
+
+//     } catch (error) {
+//         res.status(400).send("Error during registration: " + error.message);
+//     }
+// });
+
+
+
+
+// app.post("/log", async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+//         // console.log("Request body:", req.body);
+//         const user = await Login.findOne({ email });
+
+//         if (user && await bcrypt.compare(password, user.password)) {
+//             res.cookie("userEmail", user.email, {
+//                 httpOnly: true
+//             });
+
+//             res.status(201).render("index", { user });
+//         } else {
+//             res.send("Invalid email or password");
+//         }
+
+//     } catch (error) {
+//         res.status(400).send("Login error: " + error.message);
+//     }
+// });
+
+
+
 
 
 
