@@ -31,3 +31,39 @@ function getLocation() {
     }
 }
 
+// form get
+document.getElementById('service-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // const data = {
+    //     wasteType: document.getElementById('waste-type').value,
+    //     wasteAmount: document.getElementById('waste-amount').value,
+    //     pickupLocation: document.getElementById('pickup-location').value,
+    //     pickupDate: document.getElementById('pickup-date').value,
+    //     additionalNotes: document.getElementById('additional-notes').value
+    // };
+
+     // Get the required input elements
+     const wasteTypeInput = document.getElementById('waste-type');
+     const amountInput = document.getElementById('waste-amount');
+     const locationInput = document.getElementById('pickup-location');
+     const pickupDateInput = document.getElementById('pickup-date');
+     const notesInput = document.getElementById('additional-notes');
+
+    const serviceData = {
+        wasteType: wasteTypeInput.value,
+        wasteAmount: amountInput.value,
+        pickupLocation: locationInput.value,
+        pickupDate: pickupDateInput.value,
+        additionalNotes: notesInput.value
+    };
+    
+    // Store data temporarily in localStorage
+    localStorage.setItem('submittedServiceData', JSON.stringify(serviceData));
+
+    // Redirect to confirmation page
+    window.location.href = '/confirmation';
+});
+
+
+

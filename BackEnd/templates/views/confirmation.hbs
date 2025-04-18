@@ -1,0 +1,153 @@
+{{!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Your Request</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .summary {
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+        .btn-confirm {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-confirm:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Your Waste Pickup Request</h2>
+        <div class="summary" id="summary-details">
+            <!-- Filled by JS -->
+        </div>
+        <button class="btn-confirm" onclick="confirmRequest()">Confirm</button>
+    </div>
+<script src="js/confirmation.js"></script>
+</body>
+</html> --}}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #e9f0f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .confirmation-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .confirm-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .confirm-btn:hover {
+            background-color: #218838;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 25px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .popup.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-box">
+        <h2>Confirm Your Request</h2>
+       <ul>
+    <li><strong>Waste Type:</strong> <span id="wasteType"></span></li>
+    <li><strong>Amount:</strong> <span id="wasteAmount"></span> kg</li>
+    <li><strong>Pickup Location:</strong> <span id="pickupLocation"></span></li>
+    <li><strong>Pickup Date:</strong> <span id="pickupDate"></span></li>
+    <li><strong>Notes:</strong> <span id="additionalNotes"></span></li>
+    <li><strong>Total Price:</strong> ₹<span id="totalPrice"></span></li>
+</ul>
+        <button class="confirm-btn" onclick="confirmRequest()">Confirm</button>
+
+    </div>
+
+    <div id="popup" class="popup">
+        <h3>✅ Request Confirmed!</h3>
+        <p>Thank you for using our service.</p>
+    </div>
+
+    {{!-- <script>
+        function showPopup() {
+            const popup = document.getElementById("popup");
+            popup.classList.add("show");
+            setTimeout(() => {
+                popup.classList.remove("show");
+                window.location.href = 'home_page'; // redirect back home or wherever
+            }, 2500);
+        }
+    </script> --}}
+    <script src="js/confirmation.js"></script>
+</body>
+</html>
